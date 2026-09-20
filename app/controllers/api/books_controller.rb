@@ -22,6 +22,7 @@ class Api::BooksController < ApplicationController
 
     def destroy
         @book = Book.find_by!(serial_number: params[:serial_number])
+        UserBook.mark_any_returns_for_book(@book)
         if @book.update(deleted: true)
             head :ok
         end

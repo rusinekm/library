@@ -14,6 +14,10 @@ class UserBook < ApplicationRecord
         existing_user_book.return_book if existing_user_book
     end
 
+    def self.mark_any_returns_for_book(book)
+        UserBook.where(book: book, return_time: nil).each(&:return_book)
+    end
+
     def return_book
         self.return_time ||= DateTime.now
         self.save
