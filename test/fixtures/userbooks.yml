@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book_id: 
+  user_id: 
+  borrow_time: 2026-09-20 12:52:28
+  return_time: 2026-09-20 12:52:28
+
+two:
+  book_id: 
+  user_id: 
+  borrow_time: 2026-09-20 12:52:28
+  return_time: 2026-09-20 12:52:28
