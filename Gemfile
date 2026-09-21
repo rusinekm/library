@@ -47,8 +47,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   gem "rspec-rails"
-  gem "factory_bot_rails", require: false
-  gem "faker", require: false
+  gem "factory_bot_rails", "~> 6.5"
+  gem "faker"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false

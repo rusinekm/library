@@ -43,10 +43,10 @@ def serialize_single_book(book)
 end
 
 def book_params
-    params.require(:book).permit(:author, :title)
+    params.require(:book).permit(:title)
 end
 
 def find_of_create_author
-    @author ||= Author.find_by(full_name: params[:author]) || Author.create(full_name: params[:author])
+    @author ||= Author.find_by(full_name: params[:book][:author]) || Author.create(full_name: params[:book][:author])
 end
 end

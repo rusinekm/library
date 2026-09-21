@@ -363,7 +363,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  factory_bot_rails
+  factory_bot_rails (~> 6.5)
   faker
   json (< 3)
   kamal

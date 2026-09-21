@@ -9,8 +9,6 @@ class UserBook < ApplicationRecord
 
     def self.return_book_if_exists(user, book)
         existing_user_book = UserBook.find_by(user: user, book: book, return_time: nil)
-        puts "Checking for existing user book:"
-        puts existing_user_book.inspect
         existing_user_book.return_book if existing_user_book
     end
 

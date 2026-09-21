@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
     before_validation :set_serial_number, on: :create
     validates :serial_number, presence: true, uniqueness: true
+    validates :title, presence: true
 
     belongs_to :author
     has_many :user_books, -> { where(return_time: nil) }
