@@ -37,6 +37,13 @@ RSpec.describe 'Api::Books', type: :request do
       expect(JSON.parse(response.body)['serial_number']).to eq(book.serial_number)
       expect(JSON.parse(response.body)['history'].size).to eq(3)
     end
+
+    it 'returns not found for an unknown serial number' do
+      get '/api/books/999999'
+
+      expect(response).to have_http_status(:not_found)
+      expect(JSON.parse(response.body)).to eq('error' => 'Book was not found')
+    end
   end
 
   describe 'POST /api/books' do
@@ -54,6 +61,16 @@ RSpec.describe 'Api::Books', type: :request do
       expect(response).to have_http_status(:created)
       books_after_adding = Book.all.count
       expect(books_after_adding).to eq(books_before_adding + 1)
+    end
+
+    it 'returns validation errors for an invalid book' do
+      post '/api/books', params: { book: { author: 'Author', title: '' } }
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(JSON.parse(response.body)).to include(
+        'error' => 'The request contains invalid data',
+        'details' => include("Title can't be blank")
+      )
     end
   end
 end

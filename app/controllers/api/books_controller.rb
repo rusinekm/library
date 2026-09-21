@@ -14,18 +14,15 @@ class Api::BooksController < ApplicationController
 
     def create
         find_of_create_author
-        @book = Book.new(book_params.merge(author_id: @author.id))
-        if @book.save
-            head :created
-        end
+        @book = Book.create!(book_params.merge(author_id: @author.id))
+        head :created
     end
 
     def destroy
         @book = Book.find_by!(serial_number: params[:serial_number])
         UserBook.mark_any_returns_for_book(@book)
-        if @book.update(deleted: true)
-            head :ok
-        end
+        @book.update!(deleted: true)
+        head :ok
     end
 
 private
@@ -47,6 +44,6 @@ def book_params
 end
 
 def find_of_create_author
-    @author ||= Author.find_by(full_name: params[:book][:author]) || Author.create(full_name: params[:book][:author])
+    @author ||= Author.find_by(full_name: params[:book][:author]) || Author.create!(full_name: params[:book][:author])
 end
 end
