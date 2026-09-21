@@ -1,36 +1,31 @@
-# README
-This is a library app alllwng adding, removing books and lending them for library customers and returning them
+# Library
 
-after 27 and 30 days reminders about due date for returning books are sent
+This library API supports adding and removing books, lending them to library customers, and recording their return.
 
+Borrowers receive return reminders after 27 and 30 days.
 
-## design decisions
-I have decided to include soft deleting of the books, rather than removing them directly, as this might be later expanded so that user might be able to see own history of borrowed books
+## Design Decisions
 
-I also decided for action of borrowing book automatically mark previous borrowing as returned. I assumed that this would be most likely decision due to input being used on some sort of bar code, qr code, or similar, so it would have to be physically present. I also allowed lending to the same user one after another time, as sort of extension of borrowing a book
+Books are soft-deleted rather than removed directly. This leaves room for users to view their borrowing history later.
 
-Last decision I made was not to use pagination. Task specifically mentioned to include all books in index, so pagination might fail this part of task
+Borrowing a book automatically marks any previous active borrowing of that book as returned. This assumes a barcode or QR code scan requires the physical book to be present. The same user can borrow a book again as an extension of the loan.
 
-## possible next development ideas
+Pagination is not included because the task requires the index endpoint to return all books.
 
-first idea is to add authentication and I would recommend to use devise gem for that
+## Possible Future Development
 
-next idea might be to add some sort of RBAC, for example using pundit gem
+- Add authentication with the `devise` gem.
+- Add role-based access control with the `pundit` gem.
+- Add pagination with the `pagy` gem.
+- Add user-management endpoints, borrowing limits, or a frontend for the API.
 
-I would also recommend adding pagination, for which I would recommend using pagy gem
-
-Next I would think about expanding the app itself. For this I have ideas like adding also user endpoint for user input creation, limit of how many books can be borrowed at the same time, or some sort of frontend for the api
-
-
-
-
-## Docker development
+## Docker Development
 
 Start the application and PostgreSQL with:
 
+```sh
 docker compose up --build
-
-
+```
 
 The API is available at `http://localhost:3000`. The Rails database is created
 and migrated automatically when the web container starts.
@@ -38,13 +33,12 @@ and migrated automatically when the web container starts.
 Stop the containers with `docker compose down`. To also remove the development
 database volume, run `docker compose down --volumes`.
 
-## running the application
-possible routes to run the api are:
+## API Endpoints
 
-GET localhost:3000/api/books -> this returns index of the non deleted books
-POST localhost:3000/api/books -> this creates a book and accepts nested params of books: {author: and title:} as query params
-GET localhost:3000/api/books/:serial_number -> this is a show action that returns book, but accepts book's serial number, rather than id
-DELETE localhost:3000/api/books/:serial_number -> this soft deletes a book record
-POST localhost:3000/api/borrow_book -> this creates a borrowing of the book. It requires params of :serial_number and :library_card to make valid book borrowing record
-DELETE localhost:3000/api/return_book -> this closes book borrowing if there exists one, where it wasn'e marked as returned
+- `GET /api/books`: Returns all non-deleted books.
+- `POST /api/books`: Creates a book. Accepts nested `book` parameters for `author` and `title`.
+- `GET /api/books/:serial_number`: Returns a book by serial number.
+- `DELETE /api/books/:serial_number`: Soft-deletes a book.
+- `POST /api/borrow_book`: Borrows a book. Requires `serial_number` and `library_card` parameters.
+- `DELETE /api/return_book`: Closes an active borrowing record, if one exists.
 
