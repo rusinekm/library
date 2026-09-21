@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_20_105228) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_21_020008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_20_105228) do
     t.datetime "return_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "three_days_left_reminder_sent", default: false
+    t.boolean "book_expiration_reminder_sent", default: false
     t.index ["book_id"], name: "index_user_books_on_book_id"
     t.index ["user_id"], name: "index_user_books_on_user_id"
   end

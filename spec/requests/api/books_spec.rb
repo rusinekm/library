@@ -53,7 +53,6 @@ RSpec.describe 'Api::Books', type: :request do
       }
       expect(response).to have_http_status(:created)
       books_after_adding = Book.all.count
-      puts Book.all.count
       expect(books_after_adding).to eq(books_before_adding + 1)
     end
   end
