@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "json", "< 3"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.5", ">= 8.0.5.1"
+gem "rails", "~> 8.1.0"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
