@@ -13,7 +13,7 @@ RSpec.describe ReminderMailer, type: :mailer do
         end
       }.to change(ActionMailer::Base.deliveries, :count).by(1)
 
-      expect(ActionMailer::Base.deliveries.last.to).to eq([user_book.user.email])
+      expect(ActionMailer::Base.deliveries.last.to).to eq([ user_book.user.email ])
       expect(ActionMailer::Base.deliveries.last.body.encoded).to include("due in 3 days")
       expect(user_book.reload.three_days_left_reminder_sent).to be(true)
       expect(returned_user_book.reload.three_days_left_reminder_sent).to be(false)
@@ -33,7 +33,7 @@ RSpec.describe ReminderMailer, type: :mailer do
         end
       }.to change(ActionMailer::Base.deliveries, :count).by(1)
 
-      expect(ActionMailer::Base.deliveries.last.to).to eq([user_book.user.email])
+      expect(ActionMailer::Base.deliveries.last.to).to eq([ user_book.user.email ])
       expect(ActionMailer::Base.deliveries.last.body.encoded).to include(user_book.book.title)
       expect(user_book.reload.book_expiration_reminder_sent).to be(true)
       expect(returned_user_book.reload.book_expiration_reminder_sent).to be(false)
