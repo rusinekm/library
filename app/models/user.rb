@@ -3,7 +3,10 @@ class User < ApplicationRecord
 
     validates :full_name, presence: true, length: { minimum: 3 }
     validates :library_card, presence: true, uniqueness: true
-    validates :email, presence: true, uniqueness: true
+    validates :email,
+              presence: true,
+              uniqueness: true,
+              format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
 
     private
