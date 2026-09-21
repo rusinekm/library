@@ -21,6 +21,12 @@ Pagination is not included because the task requires the index endpoint to retur
 
 ## Docker Development
 
+Copy the example environment configuration before starting the application:
+
+```sh
+cp .env.example .env
+```
+
 Start the application and PostgreSQL with:
 
 ```sh
